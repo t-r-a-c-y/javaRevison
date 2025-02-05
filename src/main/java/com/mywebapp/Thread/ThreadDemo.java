@@ -1,14 +1,15 @@
 package com.mywebapp.Thread;
 
 public class ThreadDemo {
-    public static void main(String[] args) throws InterruptedException {
-        System.out.println(Thread.currentThread().getName());
-        Thread thread = null;
-        for (int i = 0; i < 10; i++) {
-            thread = new Thread(new DownloadingFile());
-            thread.start();
+    public static void main(String[] args) {
+        Thread thread = new Thread(new DownloadingFile());
+        thread.start();
+
+        try {
+            thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-        thread.join();
-        System.out.println("REady to scan");
+        thread.interrupt();
     }
 }
